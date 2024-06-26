@@ -1,4 +1,4 @@
-name: Release Notes Generator
+name: Changelog Generator
 
 on:
   release:
@@ -6,14 +6,14 @@ on:
 
 jobs:
 
-  generate-release-notes:
+  generate-changelog:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v2
-    - name: Generate Release Notes
-      id: generate-release-notes
-      uses: ./.github/actions/release-notes-generator
+    - name: Generate Changelog
+      id: generate-changelog
+      uses: ./.github/actions/changelog-generator
     - name: Create Release
       uses: release-action/create-release@v1
       env:
@@ -21,4 +21,4 @@ jobs:
       with:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
-        body: ${{ steps.generate-release-notes.outputs.release-notes }}
+        body: ${{ steps.generate-changelog.outputs.changelog }}

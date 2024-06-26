@@ -1,0 +1,12 @@
+name: 'Changelog Generator'
+description: 'Generates a changelog based on commit history'
+inputs:
+  latest-tag:
+    description: 'The latest release tag'
+    required: true
+outputs:
+  changelog:
+    description: 'The generated changelog'
+runs:
+  using: 'python'
+  main: 'main.py'
