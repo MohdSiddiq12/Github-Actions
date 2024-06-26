@@ -1,0 +1,24 @@
+name: Release Notes Generator
+
+on:
+  release:
+    types: [created]
+
+jobs:
+
+  generate-release-notes:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Generate Release Notes
+      id: generate-release-notes
+      uses: ./.github/actions/release-notes-generator
+    - name: Create Release
+      uses: release-action/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: ${{ steps.generate-release-notes.outputs.release-notes }}
